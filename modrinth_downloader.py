@@ -32,11 +32,13 @@ def downloadProject(projectID, minecraftLoaders = None, minecraftVersions = None
         else:
             pathlib.Path(outputDir).mkdir(parents=True, exist_ok=True)
     
-    searchURL = f'https://api.modrinth.com/v2/project/{projectID}/version'
+    searchURL = f'https://api.modrinth.com/v2/project/{projectID}/version?'
     if minecraftLoaders != None:
-        searchURL += f"?loaders={str(minecraftLoaders)}"
+        minecraftLoadersSearch = str(minecraftLoaders).replace("'", '"')
+        searchURL += f"&loaders={minecraftLoadersSearch}"
     if minecraftVersions != None:
-        searchURL += f"?game_versions={str(minecraftVersions)}"
+        minecraftVersionsSearch = str(minecraftVersions).replace("'", '"')
+        searchURL += f"&game_versions={minecraftVersionsSearch}"
     
     r = requests.get(searchURL)
     statusCode = r.status_code
