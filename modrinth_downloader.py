@@ -13,6 +13,9 @@ import sys
 import argparse
 import pathlib
 
+def version():
+    return "1.0.0-SNAPSHOT"
+
 # The project downloader. Returns True if the mod and its dependencies have successfully been downloaded.
 # minecraftLoader: list of loaders/platforms to look for
 # minecraftVersions: list of versions to look for
