@@ -26,12 +26,12 @@ python3 modrinth_downloader.py
 ### Basic usage
 To download Sodium Extra and their dependencies for a Minecraft 1.21 instance with Fabric, run:
 ```bash
-python3 modrinth_downloader.py --version 1.21 --loader fabric --projects sodium-extra
+python3 modrinth_downloader.py --versions 1.21 --loaders fabric --projects sodium-extra
 ```
 This is going to download Sodium Extra and Sodium, because that is a required dependency.
 #### Explanation:
-* <code>--version</code> specifies what Minecraft version the mod is for. If more than one version is provided, the newest available will be downloaded, as long as it's one of these versions. <code>-v</code> can also be used instead.
-* <code>--loader</code> specifies what loader the project is made for. For resource packs, use <code>minecraft</code>. For data packs, use <code>datapack</code>. <code>-l</code> or <code>--platform</code> can also be used instead.
+* <code>--versions</code> specifies what Minecraft version(s) the mod is for. If more than one version is provided, the newest available will be downloaded, as long as it's one of these versions. <code>-v</code> can also be used instead.
+* <code>--loaders</code> specifies what loader(s) the project is made for. For resource packs, use <code>minecraft</code>. For data packs, use <code>datapack</code>. You can also specify multiple loaders. This can come in handy when downloading a resource pack that requires a dependency that is a mod. <code>-l</code> or <code>--platform</code> can also be used instead.
 * <code>--projects</code> specifies what projects should be downloaded. You can use the project name (such as <code>fabric-api</code>. This can be found in the searchbar when looking at a project) or project identifier (<code>P7dR8mSH</code>). These projects *must* meet the previous requirements (version and mod loader), otherwise the project entry will be skipped. <code>-p</code> can also be used instead.
 
 ### Advanced usage
@@ -61,13 +61,18 @@ Download Fresh Animations for Minecraft version 1.20.4 to <code>~/Downloads</cod
 ```bash
 python3 modrinth_downloader.py -v 1.20.4 -l minecraft -p fresh-animations -d ~/Downloads -r
 ```
+Download Even Better Enchants and its dependencies for Minecraft version 1.21 (this resource pack has a dependency that is a mod, so we also specify the loader for the mod, in this case Fabric):
+```bash
+python3 modrinth_downloader.py -v 1.21 -l minecraft fabric -p even-better-enchants
+```
 
 ### Help info
 You can also see the options and possible values you can pass by running <code>python3 modrinth_downloader.py --help</code>:
 ```
 $ python3 modrinth_downloader.py --help
 usage: modrinth_downloader.py [-h] [-d DIRECTORY] [-r] [-o] [-s] -l
-                              {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} -v
+                              {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall}
+                              [{fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} ...] -v
                               VERSIONS [VERSIONS ...] -p PROJECTS [PROJECTS ...]
 
 Download Minecraft Java mods, resource packs, data packs, modpacks, shaders, plugins etc. and their dependencies from Modrinth
@@ -81,8 +86,8 @@ options:
                         Also download all optional dependencies of a project
   -s, --skip, --skip-dependencies
                         Skip downloading dependencies of projects
-  -l {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall}, --loader {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall}, --platform {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall}
-                        The loader/platform you want your projects to support
+  -l {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} [{fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} ...], --loaders {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} [{fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} ...], --platforms {fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} [{fabric,forge,neoforge,quilt,liteloader,modloader,rift,minecraft,datapack,canvas,iris,optifine,vanilla,bikkit,folia,spigot,paper,purpur,sponge,bungeecord,velocity,waterfall} ...]
+                        The loaders/platforms you want your projects/dependencies to support
   -v VERSIONS [VERSIONS ...], --versions VERSIONS [VERSIONS ...]
                         The Minecraft versions to look for for your projects
   -p PROJECTS [PROJECTS ...], --projects PROJECTS [PROJECTS ...]
