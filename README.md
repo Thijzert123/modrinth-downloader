@@ -3,7 +3,7 @@ This simple Python 3 application downloads given Minecraft Java mods and their d
 *Note: mods, resource packs, data packs, modpacks, shaders and plugins will from now on be reffered to as __projects__.*
 
 ## Setup
-* Check if you have Python 3 installed on your system by running <code>python3 --version</code>. If Python is installed, you should see something along the lines of <code>Python 3.x.x</code> Note that the Python version should be at least 3.6.x in order for this program to work correctly.
+* Check if you have Python 3 installed on your system by running `python3 --version`. If Python is installed, you should see something along the lines of `Python 3.x.x` Note that the Python version should be at least 3.6.x in order for this program to work correctly.
 <br>If, however you get an error message indicating that the command is not found, you should install now. If you are using Windows, go to https://www.python.org/downloads/latest, and download and run the installer. If you are using Linux, run the correct command for your Linux distribution:
 ```bash
 # Debian-based (Ubuntu, Mint etc.)
@@ -30,15 +30,17 @@ python3 modrinth_downloader.py --versions 1.21 --loaders fabric --projects sodiu
 ```
 This is going to download Sodium Extra and Sodium, because that is a required dependency.
 #### Explanation:
-* <code>--versions</code> specifies what Minecraft version(s) the mod is for. If more than one version is provided, the newest available will be downloaded, as long as it's one of these versions. <code>-v</code> can also be used instead.
-* <code>--loaders</code> specifies what loader(s) the project is made for. For resource packs, use <code>minecraft</code>. For data packs, use <code>datapack</code>. You can also specify multiple loaders. This can come in handy when downloading a resource pack that requires a dependency that is a mod. <code>-l</code> or <code>--platform</code> can also be used instead.
-* <code>--projects</code> specifies what projects should be downloaded. You can use the project name (such as <code>fabric-api</code>. This can be found in the searchbar when looking at a project) or project identifier (<code>P7dR8mSH</code>). These projects *must* meet the previous requirements (version and mod loader), otherwise the project entry will be skipped. <code>-p</code> can also be used instead.
+* `--versions` specifies what Minecraft version(s) the mod is for. If more than one version is provided, the newest available will be downloaded, as long as it's one of these versions. `-v` can also be used instead.
+* `--loaders` specifies what loader(s) the project is made for. For resource packs, use `minecraft`. For data packs, use `datapack`. You can also specify multiple loaders. This can come in handy when downloading a resource pack that requires a dependency that is a mod. `-l` or `--platform` can also be used instead.
+* `--projects` specifies what projects should be downloaded. You can use the project name (such as `fabric-api`. This can be found in the searchbar when looking at a project) or project identifier (`P7dR8mSH`). These projects *must* meet the previous requirements (version and mod loader), otherwise the project entry will be skipped. `-p` can also be used instead.
+
+_NOTE: this script will always grab the most recently uploaded mod that complies with your query, so be careful when not specifying a version or loader/platform._
 
 ### Advanced usage
-* <code>-d</code>, <code>--directory</code> or <code>--destination</code> can be used to specify the output directory. If it doesn't exist, it will be created. However, if the specified output directory is a file, an error message is provided and the program stops.
-* If the arguments <code>-r</code> or <code>--replace</code> are passed, the files will be replaced when they already exist. This is almost never useful, because it usually results in downloading the same file multiple times.
-* When <code>-o</code>, <code>--optional</code> or <code>--optional-dependencies</code> are used, all the optional dependencies of projects will be downloaded. To avoid recursion problems, when a file exists it won't still download the dependencies.
-* When <code>-s</code>, <code>--skip</code> or <code>--skip-dependencies</code> are used, no dependencies will ever be downloaded.
+* `-d`, `--directory` or `--destination` can be used to specify the output directory. If it doesn't exist, it will be created. However, if the specified output directory is a file, an error message is provided and the program stops.
+* If the arguments `-r` or `--replace` are passed, the files will be replaced when they already exist. This is almost never useful, because it usually results in downloading the same file multiple times.
+* When `-o`, `--optional` or `--optional-dependencies` are used, all the optional dependencies of projects will be downloaded. To avoid recursion problems, when a file exists it won't still download the dependencies.
+* When `-s`, `--skip` or `--skip-dependencies` are used, no dependencies will ever be downloaded.
 
 ### Examples
 Download Mod Menu and their dependencies for Fabric, Minecraft version 1.20.5:
@@ -57,7 +59,7 @@ Download Reese's Sodium Options for NeoForge, Minecraft version 1.21.1, and down
 ```bash
 python3 modrinth_downloader.py -v 1.21.1 -l neoforge -p reeses-sodium-options -o
 ```
-Download Fresh Animations for Minecraft version 1.20.4 to <code>~/Downloads</code> and replace files if they already exist:
+Download Fresh Animations for Minecraft version 1.20.4 to `~/Downloads` and replace files if they already exist:
 ```bash
 python3 modrinth_downloader.py -v 1.20.4 -l minecraft -p fresh-animations -d ~/Downloads -r
 ```
@@ -67,7 +69,7 @@ python3 modrinth_downloader.py -v 1.21 -l minecraft fabric -p even-better-enchan
 ```
 
 ### Help info
-You can also see the options and possible values you can pass by running <code>python3 modrinth_downloader.py --help</code>:
+You can also see the options and possible values you can pass by running `python3 modrinth_downloader.py --help`:
 ```
 $ python3 modrinth_downloader.py --help
 usage: modrinth_downloader.py [-h] [-d DIRECTORY] [-r] [-o] [-s] -l
