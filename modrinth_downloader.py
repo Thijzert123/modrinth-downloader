@@ -14,14 +14,14 @@ import argparse
 import pathlib
 
 # The project downloader. Returns True if the mod and its dependencies have successfully been downloaded.
-# minecraftLoader: loader/platform to look for
+# minecraftLoader: list of loaders/platforms to look for
 # minecraftVersions: list of versions to look for
 # projectID: id of project that should be downloaded, can be name or Modrinth identifier
 # optionalDependencies: whether optional dependencies should be downloaded
 # skipDependencies: whether dependencies should be downloaded
 # outputDir: output directory, made if non-existent
 # replaceFiles: whether files should be replaced
-def downloadProject(minecraftLoader, minecraftVersions, projectID, optionalDependencies = False, skipDependencies = False, outputDir = ".", replaceFiles = False):
+def downloadProject(minecraftLoaders, minecraftVersions, projectID, optionalDependencies = False, skipDependencies = False, outputDir = ".", replaceFiles = False):
     if not os.path.isdir(outputDir):
         if os.path.isfile(outputDir):
             print(f"Output directory is a file: {outputDir}")
@@ -29,8 +29,9 @@ def downloadProject(minecraftLoader, minecraftVersions, projectID, optionalDepen
         else:
             pathlib.Path(outputDir).mkdir(parents=True, exist_ok=True)
 
+    minecraftLoadersSearch = str(minecraftLoaders).replace("'", '"')
     minecraftVersionsSearch = str(minecraftVersions).replace("'", '"')
-    searchURL = f'https://api.modrinth.com/v2/project/{projectID}/version?loaders=["{minecraftLoader}"]&game_versions={minecraftVersionsSearch}'
+    searchURL = f'https://api.modrinth.com/v2/project/{projectID}/version?loaders={minecraftLoadersSearch}&game_versions={minecraftVersionsSearch}'
     r = requests.get(searchURL)
     statusCode = r.status_code
     if statusCode == 404:
@@ -40,7 +41,7 @@ def downloadProject(minecraftLoader, minecraftVersions, projectID, optionalDepen
         print(f"Error code {statusCode} while processing {projectID}, skipping")
     projectDetails = r.json()
     if len(projectDetails) == 0:
-        print(f"No {projectID} version found for {minecraftLoader} or Minecraft versions {minecraftVersions}, skipping")
+        print(f"No {projectID} version found for {minecraftLoaders} or Minecraft versions {minecraftVersions}, skipping")
         return False
     
     projectID = projectDetails[0]["project_id"]
@@ -64,7 +65,7 @@ def downloadProject(minecraftLoader, minecraftVersions, projectID, optionalDepen
         if projectDependencies:
             for x in range(len(projectDependencies)):
                 if projectDependencies[x]["dependency_type"] == "required" or (projectDependencies[x]["dependency_type"] == "optional" and optionalDependencies):
-                    if downloadProject(minecraftLoader, minecraftVersions, projectDependencies[x]["project_id"], optionalDependencies, skipDependencies, outputDir, replaceFiles) == False:
+                    if downloadProject(minecraftLoaders, minecraftVersions, projectDependencies[x]["project_id"], optionalDependencies, skipDependencies, outputDir, replaceFiles) == False:
                         successful = False
 
     return successful
@@ -76,12 +77,12 @@ if __name__ == "__main__":
     argparser.add_argument("-r", "--replace", action="store_true", help="Replace files when they already exist")
     argparser.add_argument("-o", "--optional", "--optional-dependencies", action="store_true", help="Also download all optional dependencies of a project")
     argparser.add_argument("-s", "--skip", "--skip-dependencies", action="store_true", help="Skip downloading dependencies of projects")
-    argparser.add_argument("-l", "--loader", "--platform", required=True, choices=["fabric", "forge", "neoforge", "quilt", "liteloader", "modloader", "rift", "minecraft", "datapack", "canvas", "iris", "optifine", "vanilla", "bikkit", "folia", "spigot", "paper", "purpur", "sponge", "bungeecord", "velocity", "waterfall"], help="The loader/platform you want your projects to support")
+    argparser.add_argument("-l", "--loaders", "--platforms", required=True, nargs="+", choices=["fabric", "forge", "neoforge", "quilt", "liteloader", "modloader", "rift", "minecraft", "datapack", "canvas", "iris", "optifine", "vanilla", "bikkit", "folia", "spigot", "paper", "purpur", "sponge", "bungeecord", "velocity", "waterfall"], help="The loaders/platforms you want your projects/dependencies to support")
     argparser.add_argument("-v", "--versions", required=True, nargs="+", help="The Minecraft versions to look for for your projects")
     argparser.add_argument("-p", "--projects", required=True, nargs="+", help="Projects to download. This can be the name (fabric-api) or project identifier (P7dR8mSH).")
     args = argparser.parse_args()
 
     for i in range(len(args.projects)):
-        downloadProject(args.loader, args.versions, args.projects[i], optionalDependencies = args.optional, skipDependencies = args.skip, outputDir = os.path.abspath(args.directory.strip()), replaceFiles = args.replace)
+        downloadProject(args.loaders, args.versions, args.projects[i], optionalDependencies = args.optional, skipDependencies = args.skip, outputDir = os.path.abspath(args.directory.strip()), replaceFiles = args.replace)
         
     print("done")
