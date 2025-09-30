@@ -3,8 +3,7 @@ This simple Python 3 application downloads given Minecraft Java mods and their d
 *Note: mods, resource packs, data packs, modpacks, shaders and plugins will from now on be reffered to as __projects__.*
 
 ## Setup
-* Check if you have Python 3 installed on your system by running `python3 --version`. If Python is installed, you should see something along the lines of `Python 3.x.x` Note that the Python version should be at least 3.6.x in order for this program to work correctly.
-<br>If, however you get an error message indicating that the command is not found, you should install now. If you are using Windows, go to https://www.python.org/downloads/latest, and download and run the installer. If you are using Linux, run the correct command for your Linux distribution:
+* Check if you have Python 3 installed on your system by running `python3 --version`. If Python is installed, you should see something along the lines of `Python 3.x.x` Note that the Python version should be at least 3.6.x in order for this program to work correctly. If, however, you get an error message indicating that the command is not found, you should install now. If you are using Windows, go to https://www.python.org/downloads/latest, and download and run the installer. If you are using Linux, run the correct command for your Linux distribution:
 ```bash
 # Debian-based (Ubuntu, Mint etc.)
 apt install -y python3
