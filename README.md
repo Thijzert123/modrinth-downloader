@@ -28,7 +28,9 @@ To download Sodium Extra and their dependencies for a Minecraft 1.21 instance wi
 python3 modrinth_downloader.py --versions 1.21 --loaders fabric --projects sodium-extra
 ```
 This is going to download Sodium Extra and Sodium, because that is a required dependency.
-#### Explanation:
+
+**Explanation:**
+
 * `--versions` specifies what Minecraft version(s) the mod is for. If more than one version is provided, the newest available will be downloaded, as long as it's one of these versions. `-v` can also be used instead.
 * `--loaders` specifies what loader(s) the project is made for. For resource packs, use `minecraft`. For data packs, use `datapack`. You can also specify multiple loaders. This can come in handy when downloading a resource pack that requires a dependency that is a mod. `-l` or `--platform` can also be used instead.
 * `--projects` specifies what projects should be downloaded. You can use the project name (such as `fabric-api`. This can be found in the searchbar when looking at a project) or project identifier (`P7dR8mSH`). These projects *must* meet the previous requirements (version and mod loader), otherwise the project entry will be skipped. `-p` can also be used instead.
