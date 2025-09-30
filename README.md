@@ -1,4 +1,5 @@
-This simple Python 3 application downloads given Minecraft Java mods and their dependencies from [Modrinth](https://modrinth.com). Things such as Minecraft version and mod loader can be configured individually.<br><br>
+This simple Python 3 application downloads given Minecraft Java mods and their dependencies from [Modrinth](https://modrinth.com). Things such as Minecraft version and mod loader can be configured individually.
+
 *Note: mods, resource packs, data packs, modpacks, shaders and plugins will from now on be reffered to as __projects__.*
 
 ## Setup
